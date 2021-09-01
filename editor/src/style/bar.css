@@ -1,0 +1,7 @@
+.bar {
+    float: left;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 100%;
+    padding-left: 0.5rem;
+}
