@@ -1,6 +1,6 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import '../style/bar.css';
+import '../style/bar.css';
 
 const CKeditor = () => {
     var saveData= "";
@@ -10,10 +10,17 @@ const CKeditor = () => {
 
     return (
         <div className="editor">
-            <div className="bar">
-                <button onClick={save}>Save</button>
+            <div className="navbar">
+                <div className="dropdown">
+                    <button className="dropbtn">File 
+                        <i className="fa fa-caret-down"></i>
+                    </button>
+                    <div className="dropdown-content">
+                        <button onClick={save}>Save</button>
+                    </div>
+                </div>
             </div>
-            
+
             <CKEditor
                 editor={ ClassicEditor }
                 data=""
