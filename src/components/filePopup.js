@@ -50,18 +50,21 @@ class FilePopup extends React.Component{
     };
 
 
-
-
     render(){
         return(
             <Popup trigger={
                 <button className="button"> Open File </button>
             } modal>
-            <span>
-                {this.state.files.map((file) => (
-                    <button onClick={() => this.openFile(file._id)} key={file._id}> {file.name} </button>
-                ))} 
-            </span>
+                {close => (
+                    <span>
+                        {this.state.files.map((file) => (
+                            <button onClick={() => {
+                                this.openFile(file._id);
+                                close();
+                            }} key={file._id}> {file.name} </button>
+                        ))} 
+                    </span>
+                )}
             </Popup>
         );
     }
