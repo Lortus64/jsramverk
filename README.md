@@ -1,3 +1,4 @@
+https://app.travis-ci.com/Lortus64/jsramverk-api.svg?branch=main
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
