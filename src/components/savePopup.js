@@ -94,7 +94,7 @@ class SavePopup extends React.Component{
                         <form onSubmit={this.create}>
                             <label>
                                 Name:
-                                <input type="text" onChange={this.handelChange} />
+                                <input data-testid="form-text" type="text" onChange={this.handelChange} />
                             </label>
                             <input type="submit" value="Submit" />
                         </form>
@@ -103,11 +103,6 @@ class SavePopup extends React.Component{
                 )
             }
         }
-
-
-
-
-
 
         return(
             <div className="SaveButton">

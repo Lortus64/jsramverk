@@ -27,7 +27,7 @@ class CKeditor extends React.Component{
                         <button className="dropbtn">File 
                             <i className="fa fa-caret-down"></i>
                         </button>
-                        <div className="dropdown-content">
+                        <div data-testid="dropdown-content" className="dropdown-content">
                             <SavePopup SaveForParent = {this.state.dataObj} SaveText = {this.state.text}/>
                             <FilePopup parentCallback = {this.callbackFunction}/>
                         </div>

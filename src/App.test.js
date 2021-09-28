@@ -1,22 +1,38 @@
-// import { render, screen } from '@testing-library/react';
-// import App from './App';
-
-// test('Should render input ', async () => {
-//   const { container } = await render(<App />);
-
-//   const inputElement = screen.getByRole("textbox")
-// });
-
-import React from 'react';
-import { screen, render } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor} from '@testing-library/react';
 import App from './App';
 
-test( 'renders the <CKEditor> component', () => {
-	const { container } = render( <App/> );
-	const editorWrapper = container.querySelector( '.ckeditor-component' );
+test('Open file popup', async () => {
+  const { container } = await render(<App />);
 
-	expect( editorWrapper ).toBeInTheDocument();
-  const inputElement = screen.getByRole("textbox");
-  expect( inputElement ).toBeInTheDocument();
-	// expect( editorWrapper.getAttribute( 'data-ckeditor-class-name' ) ).toEqual( 'VirtualTestEditor' );
-} );
+  const hoverElement = screen.getByText("File");
+
+  fireEvent.mouseOver(hoverElement);
+  await waitFor(() => screen.getByTestId('dropdown-content'));
+  const buttonElement = screen.getByText("Open File");
+
+  expect( buttonElement ).toBeInTheDocument();
+  fireEvent.click(buttonElement);
+
+
+  await waitFor(() => screen.getByRole('dialog'));
+  const popupElement = screen.getByRole('dialog');
+  expect( popupElement ).toBeInTheDocument();
+});
+
+test('Open save popup', async () => {
+	const { container } = await render(<App />);
+  
+	const hoverElement = screen.getByText("File");
+  
+	fireEvent.mouseOver(hoverElement);
+	await waitFor(() => screen.getByTestId('dropdown-content'));
+	const buttonElement = screen.getByText("Create File");
+  
+	expect( buttonElement ).toBeInTheDocument();
+	fireEvent.click(buttonElement);
+  
+  
+	await waitFor(() => screen.getByRole('dialog'));
+	const popupElement = screen.getByTestId('form-text');
+	expect( popupElement ).toBeInTheDocument();
+  });
