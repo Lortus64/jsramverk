@@ -1,4 +1,4 @@
-https://app.travis-ci.com/Lortus64/jsramverk-api.svg?branch=main
+[![Build Status](https://app.travis-ci.com/Lortus64/jsramverk-api.svg?branch=main)](https://app.travis-ci.com/Lortus64/jsramverk-api)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
