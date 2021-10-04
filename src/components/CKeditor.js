@@ -2,21 +2,28 @@ import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '../style/bar.css';
+import io from "socket.io-client";
 
 import SavePopup from './savePopup';
 import FilePopup from './filePopup';
+
+const socket = io("https://jsramverk-editor-adei18.azurewebsites.net/1337");
+
 
 class CKeditor extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             dataObj: '',
-            text: ''
-        }
+            text: '',
+            room: false
+        };
     }
 
     callbackFunction = (childData) => {
-        this.setState({dataObj: childData})
+        this.setState({dataObj: childData});
+        this.setState({room: true});
+        socket.emit("create", this.state.dataObj._id);
     };
 
     render(){
@@ -41,7 +48,10 @@ class CKeditor extends React.Component{
                         console.log( 'Editor is ready to use!', editor );
                     } }
                     onChange={ ( event, editor ) => {
-                        this.setState({text: editor.getData()})
+                        this.setState({text: editor.getData()});
+                        if (this.state.room) {
+                            socket.emit('update', {_id: this.state.dataObj._id, text: editor.getData()})
+                        };
                     } }
                 />
             </div>

@@ -1,5 +1,5 @@
 import './style/App.css';
-import CKeditor from './components/CKeditor';
+import CKeditor from './components/CKeditor_F';
 
 function App() {
   return (
