@@ -6,6 +6,8 @@ import io from "socket.io-client";
 
 import SavePopup from './savePopup';
 import FilePopup from './filePopup_F';
+import LoginPopup from './login_F';
+import CreatePopup from './createUser_F';
 
 const socket = io("https://jsramverk-editor-adei18.azurewebsites.net");
 
@@ -13,6 +15,7 @@ export default function CKeditor() {
     const [dataObj, setDataObj] = useState('');
     const [text, setText] = useState(dataObj.content);
     const [room, setRoom] = useState();
+    const [token, setToken] = useState("empty");
 
     useEffect(() => {
         console.log("new room: " + room);
@@ -39,9 +42,14 @@ export default function CKeditor() {
     };
 
 
+    const loginToParent = (loginChildData) => {
+        if (!loginChildData.error) {
+            setToken(loginChildData.data.token);
+        };
+    };
 
 
-
+    console.log(token);
     return (
         <div className="editor">
             <div className="navbar">
@@ -50,10 +58,15 @@ export default function CKeditor() {
                         <i className="fa fa-caret-down"></i>
                     </button>
                     <div data-testid="dropdown-content" className="dropdown-content">
+                        <CreatePopup />
+                        <LoginPopup loginToParent = {loginToParent}/>
                         <SavePopup SaveForParent = {dataObj} SaveText = {text}/>
-                        <FilePopup childToParent = {childToParent}/>
+                        <FilePopup childToParent = {childToParent} token = {token}/>
                     </div>
                 </div>
+                {token == "empty" &&
+                    <h2>Login to use more features</h2>
+                }
             </div>
             <div className="text-area" onKeyUp={() => {
                     if (room) {

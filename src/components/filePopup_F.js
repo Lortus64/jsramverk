@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 
-export default function FilePopup({childToParent}) {
+export default function FilePopup(props) {
 
     const [files, setfiles] = useState([]);
 
@@ -19,8 +19,10 @@ export default function FilePopup({childToParent}) {
 
 
     const openFile = async(id) => {
+        console.log(props.token);
         var details = {
-            'id': id
+            'id': id,
+            'token': props.token
         };
 
         var formBody = [];
@@ -39,8 +41,9 @@ export default function FilePopup({childToParent}) {
           body: formBody
         })
         .then(response => response.json());
-
-        childToParent(obj[0]);
+        if (!obj.error) {
+            props.childToParent(obj[0]);
+        };
     };
 
 
