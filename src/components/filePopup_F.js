@@ -9,9 +9,16 @@ export default function FilePopup(props) {
 
     useEffect(() => {
         async function getNames() {
-            var names = await fetch('https://jsramverk-editor-adei18.azurewebsites.net/listNames')
-            .then(response => response.json());
-            setfiles(names);
+            await fetch('https://jsramverk-editor-adei18.azurewebsites.net/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ query: "{ files { _id, name } }" })
+            })
+                .then(r => r.json())
+                .then(data => setfiles(data.data.files));
         };
 
         getNames();
