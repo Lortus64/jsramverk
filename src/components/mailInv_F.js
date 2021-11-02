@@ -3,17 +3,15 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 
-export default function CreatePopup() {
+export default function LoginPopup(props) {
+    const [mail, setMail] = useState();
 
-    const [name, setName] = useState();
-    const [password, setPassword] = useState();
-
-
-    const create = async(event) => {
+    const invite = async(event) => {
         event.preventDefault();
         var details = {
-            'name': name,
-            'pass': password
+            'id': props.data._id,
+            'token': props.token,
+            'mail': mail
         };
 
         var formBody = [];
@@ -24,39 +22,28 @@ export default function CreatePopup() {
         }
         formBody = formBody.join("&");
 
-
-        var obj = await fetch('https://jsramverk-editor-adei18.azurewebsites.net/user/create', {
+        await fetch('https://jsramverk-editor-adei18.azurewebsites.net/mailInvite', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
           },
           body: formBody
         })
-        .then(response => response.json());
 
         window.location.reload(false);
     };
 
-
     return(
         <Popup trigger={
-            <button className="button"> Create User </button>
+            <button className="button"> Mail Invite </button>
         } modal>
             <span>
-                <form onSubmit={create}>
+                <form onSubmit={invite}>
                     <label>Mail: 
                         <input
                             type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </label>
-                    <br />
-                    <label>Password: 
-                        <input
-                            type="text"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={mail}
+                            onChange={(e) => setMail(e.target.value)}
                         />
                     </label>
                     <br />

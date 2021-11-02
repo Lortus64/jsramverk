@@ -8,6 +8,8 @@ import SavePopup from './savePopup';
 import FilePopup from './filePopup_F';
 import LoginPopup from './login_F';
 import CreatePopup from './createUser_F';
+import SavePDF from './savePDF_F';
+import MailInvite from './mailInv_F';
 
 const socket = io("https://jsramverk-editor-adei18.azurewebsites.net");
 
@@ -62,6 +64,8 @@ export default function CKeditor() {
                         <LoginPopup loginToParent = {loginToParent}/>
                         <SavePopup SaveForParent = {dataObj} SaveText = {text}/>
                         <FilePopup childToParent = {childToParent} token = {token}/>
+                        <SavePDF data = {dataObj} />
+                        <MailInvite data = {dataObj} token = {token} />
                     </div>
                 </div>
                 {token == "empty" &&
